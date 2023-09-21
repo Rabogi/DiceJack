@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "m:/DiceJack",
-      "program": "m:/DiceJack/main.exe",
+      "program": "m:/DiceJack/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
