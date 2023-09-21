@@ -63,6 +63,7 @@ int main()
         if (result == "none")
         {
             system("cls");
+            // std::cout << Player1.Lost << " " << Player2.Lost << endl;
             PrintMenu(Player1, Player2);
             int choice = 0;
             std::cin >> choice;
@@ -184,7 +185,11 @@ void PrintMenu(player &Player1, player &Player2)
 }
 
 string chkWin(player &Player1, player &Player2)
-{
+{   
+    if (Player1.diff == 0)
+            return (Player1.getName() + " won!");
+    if (Player2.diff == 0)
+            return (Player2.getName() + " won!");
     if (Player1.Passed == true && Player2.Passed == true)
     {
         if (Player1.diff == Player2.diff)
@@ -194,5 +199,11 @@ string chkWin(player &Player1, player &Player2)
         if (Player2.diff < Player1.diff)
             return (Player2.getName() + " won!");
     }
+    if(Player1.Lost == true && Player2.Lost == true)
+        return "Draw";
+    if(Player1.Lost == true)
+        return (Player2.getName() + " won!");
+    if(Player2.Lost == true)
+        return (Player1.getName() + " won!");
     return "none";
 }

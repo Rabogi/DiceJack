@@ -22,7 +22,7 @@ public:
 
     bool Passed = false;
     bool Lost = false;
-    int diff = 0;
+    int diff;
 };
 
 player::player(string n)
