@@ -19,6 +19,8 @@ public:
 
     bool setWins(int w);
     int getWins();
+
+    bool Passed = false;
 };
 
 player::player(string n)
