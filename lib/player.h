@@ -3,12 +3,16 @@ class player
 private:
     int score = 0;
     int wins = 0;
-    
+    string name = "Name";
+
 public:
     player();
     ~player();
 
-    player();
+    player(string n);
+
+    bool setName(string s);
+    string getName();
 
     bool setScore(int s);
     int getScore();
@@ -17,8 +21,9 @@ public:
     int getWins();
 };
 
-player::player(/* args */)
+player::player(string n)
 {
+    this->name = n;
 }
 
 player::~player()
@@ -45,4 +50,15 @@ bool player::setWins(int w)
 int player::getWins()
 {
     return this->wins;
+}
+
+bool player::setName(string n)
+{
+    this->name = n;
+    return true;
+}
+
+string player::getName()
+{
+    return this->name;
 }
