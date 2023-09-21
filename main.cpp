@@ -116,6 +116,7 @@ int main()
     table[0][0] = "Game over";
     table[0][1] = result;
     std::cout << table;
+    std::cin >> result;
     return 0;
 }
 
