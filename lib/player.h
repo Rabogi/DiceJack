@@ -21,6 +21,8 @@ public:
     int getWins();
 
     bool Passed = false;
+    bool Lost = false;
+    int diff = 0;
 };
 
 player::player(string n)

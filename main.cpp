@@ -5,6 +5,7 @@
 
 using ConsoleTable = samilton::ConsoleTable;
 
+string chkWin(player &Player1, player &Player2);
 void gotoxy(int x, int y);
 void PlayTurn(player &CPlayer);
 void ShowScoreBoard(player &Player1, player &Player2);
@@ -56,42 +57,65 @@ int main()
     gotoxy(16, 8);
     std::cin >> target;
     system("cls");
-
+    string result = "none";
     while (Player1.Passed == false || Player2.Passed == false)
     {
-        system("cls");
-        PrintMenu(Player1, Player2);
-        int choice = 0;
-        std::cin >> choice;
-        if (turn == true)
+        if (result == "none")
         {
-            switch (choice)
+            system("cls");
+            PrintMenu(Player1, Player2);
+            int choice = 0;
+            std::cin >> choice;
+            if (turn == true)
             {
-            case 1:
-                PlayTurn(Player1);
-                break;
-            case 2:
-                Pass(Player1);
-                turn = !turn;
-                break;
+                switch (choice)
+                {
+                case 1:
+                    PlayTurn(Player1);
+                    break;
+                case 2:
+                    Pass(Player1);
+                    turn = !turn;
+                    break;
+                }
             }
+            else
+            {
+                switch (choice)
+                {
+                case 1:
+                    PlayTurn(Player2);
+                    break;
+                case 2:
+                    Pass(Player2);
+                    turn = !turn;
+                    break;
+                }
+            }
+            if (Player1.Passed == false && Player2.Passed == false)
+                turn = !turn;
+            result = chkWin(Player1, Player2);
         }
         else
-        {
-            switch (choice)
-            {
-            case 1:
-                PlayTurn(Player2);
-                break;
-            case 2:
-                Pass(Player2);
-                turn = !turn;
-                break;
-            }
-        }
-        if(Player1.Passed == false && Player2.Passed == false)
-            turn = !turn;
+            break;
     }
+    // else
+    // {
+    //     system("cls");
+    //     table.clear();
+    //     table[0][0] = "Game over";
+    //     table[0][1] = result;
+    //     std::cout << table;
+    //     break;
+    // }
+
+    system("cls");
+    result = chkWin(Player1, Player2);
+    table.clear();
+    table[0][0] = "Game over";
+    table[0][1] = result;
+    std::cout << table;
+    return 0;
 }
 
 void gotoxy(int x, int y)
@@ -106,6 +130,9 @@ void PlayTurn(player &CPlayer)
     {
         CPlayer.setScore(CPlayer.getScore() + d.roll());
     }
+    CPlayer.diff = target - CPlayer.getScore();
+    if(CPlayer.diff < 0)
+        CPlayer.Lost = true;
 }
 
 void ShowScoreBoard(player &Player1, player &Player2)
@@ -154,4 +181,18 @@ void PrintMenu(player &Player1, player &Player2)
     table[0][1] = "           ";
     std::cout << table;
     gotoxy(17, 18);
+}
+
+string chkWin(player &Player1, player &Player2)
+{
+    if (Player1.Passed == true && Player2.Passed == true)
+    {
+        if (Player1.diff == Player2.diff)
+            return "Draw";
+        if (Player1.diff < Player2.diff)
+            return (Player1.getName() + " won!");
+        if (Player2.diff < Player1.diff)
+            return (Player2.getName() + " won!");
+    }
+    return "none";
 }
